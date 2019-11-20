@@ -1,0 +1,4 @@
+.mint-switch-input:checked + .mint-switch-core {
+  background: #E64340 !important;
+  border-color: #E64340 !important;
+}
