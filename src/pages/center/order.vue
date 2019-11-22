@@ -92,7 +92,6 @@
 
 <script>
 import wx from 'weixin-js-sdk'
-import wxapi from '@/utils/wxapi.js'
 export default {
   name: 'Order',
   data () {
@@ -281,12 +280,27 @@ export default {
     },
     goOrderDetail (orderId) {
       this.$router.push({path: 'orderDetails', query: {id: orderId}})
+    },
+    init () {
+      let _this = this
+      _this.$dataPost('/api/member/config', {
+        url: location.href.split('#')[0]
+      }, (res) => {
+        wx.config({
+          debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+          appId: res.data.appId, // 必填，公众号的唯一标识
+          timestamp: res.data.timestamp, // 必填，生成签名的时间戳
+          nonceStr: res.data.nonceStr, // 必填，生成签名的随机串
+          signature: res.data.sign, // 必填，签名，见附录1
+          jsApiList: ['chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        })
+      })
     }
   },
   created () {
     this.currentTab = this.$route.query.type
+    this.init()
     this.attrIncomeList(this.$route.query.type)
-    wxapi.weixin(location.href.split('#')[0])
   }
 }
 </script>

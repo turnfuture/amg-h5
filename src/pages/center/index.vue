@@ -78,13 +78,13 @@
       <div class="title">我的团队</div>
       <router-link to="myTeam">
         <div class="my-user-data">
-          <div class="num">{{perInfo.allNum}}</div>
+          <div class="num">{{perInfo.allTeamNum}}</div>
           <div class="add">
-            <span>{{perInfo.todayNum}}</span>
+            <span>{{perInfo.todayTeamNum}}</span>
             <span>今日新增</span>
           </div>
           <div class="add">
-            <span>{{perInfo.yesterdayNum}}</span>
+            <span>{{perInfo.yesterdayTeamNum}}</span>
             <span>昨日新增</span>
           </div>
         </div>

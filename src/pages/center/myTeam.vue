@@ -9,10 +9,10 @@
             </div>
             <div class="text">
               <span>{{item.name}}</span>
-              <span v-if="item.level==1">游客</span>
-              <span v-else-if="item.level==2">客官</span>
-              <span v-else-if="item.level==3">掌柜</span>
-              <span v-else>股东</span>
+              <span v-if="item.level==0">游客</span>
+              <span v-else-if="item.level==1">客官</span>
+              <span v-else-if="item.level==2">掌柜</span>
+              <span v-else-if="item.level==3">股东</span>
               <span>{{item.create_at}}</span>
             </div>
           </div>

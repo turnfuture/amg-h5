@@ -22,14 +22,28 @@ Vue.prototype.$dataPost = dataPost
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
-  //   第一次进入项目
+  //   第一次进入项目 没有userid直接去授权
   let userId = window.localStorage.getItem('userId')
-  if (!userId && to.path !== '/author') {
+  if (userId === null && to.path !== '/author') {
     window.localStorage.setItem('beforeLoginUrl', to.fullPath) // 保存用户进入的url
     next('/author')
     return false
+  } else if (userId) {
+    // 如果存在userid，查询数据库是否存在该用户
+    dataPost('/api/member/haveUser', {
+      userId: userId
+    }, (res) => {
+      if (parseInt(res.code) !== 0) {
+        window.localStorage.clear()
+        window.localStorage.setItem('beforeLoginUrl', to.fullPath) // 保存用户进入的url
+        next('/author')
+        return false
+      }
+      next()
+    })
+  } else {
+    next()
   }
-  next()
 })
 
 /* eslint-disable no-new */

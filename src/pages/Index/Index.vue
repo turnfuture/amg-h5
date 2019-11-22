@@ -192,7 +192,24 @@
         </router-link>
       </template>
     </div>
-
+    <!-- 优惠券的弹窗 -->
+    <div v-if="isShowProp" class="prop_div">
+      <div class="prop_content">
+        <div class="coupon_div">
+          <img alt="优惠券" src="../../assets/img/index/coupon_bg.png">
+          <div class="coupon">
+            <div class="title">-优惠券礼包-</div>
+            <div class="money">¥
+              <span class="price">{{couponPrice}}</span>
+            </div>
+            <div class="btn">
+              <span @click="toCoupon">立即查看</span>
+            </div>
+          </div>
+        </div>
+        <img class="closeProp" alt="关闭" @click="isShowProp = false" src="../../assets/img/activity/xqguanbi.png">
+      </div>
+    </div>
     <Nav :innerActive="innerActive"></Nav>
   </div>
 </template>
@@ -233,12 +250,28 @@ export default {
       newDataImg: null,
       newDataGoodsList: [],
       todayList: [],
-      // 通过分享进入会获取到这两个参数
-      InvitationCode: '',
-      shopId: ''
+      isShowProp: false,
+      couponPrice: 5
     }
   },
   methods: {
+    initCoupon () {
+      // 初始化优惠券
+      this.$dataPost('/api/memberCoupon/getNewCoupon', {
+        userId: window.localStorage.getItem('userId')
+      }, (res) => {
+        if (res.code === 0) {
+          if (res.data.allPrice > 0) {
+            this.isShowProp = true
+            this.couponPrice = res.data.allPrice
+          }
+        }
+      })
+    },
+    toCoupon () {
+      this.isShowProp = false
+      this.$router.push('/coupon')
+    },
     initBanner () {
       // 初始化轮播图
       this.$dataPost('/api/cms/slide/list', {
@@ -397,27 +430,10 @@ export default {
       if (type === 0 && id) {
         this.$router.push({path: 'goodsDetail', query: {id: id, type: 0}})
       }
-    },
-    getCode () {
-      this.$dataPost('/api/member/user/getUserInfoGz', {
-        code: window.localStorage.getItem('code'),
-        InvitationCode: this.InvitationCode,
-        shopId: this.shopId
-      }, (res) => {
-        if (res.data === '' || res.data === null) {
-          this.$messagebox({
-            title: '提示',
-            message: '没有数据'
-          })
-        }
-      })
     }
   },
   created () {
-    // 通过二维码进入会获取到这两个
-    this.InvitationCode = this.$route.query.InvitationCode
-    this.shopId = this.$route.query.shopId
-    this.getCode()
+    this.initCoupon()
     this.initBanner()
     this.initAdvertise()
     this.initDate()
@@ -767,4 +783,84 @@ progress::-webkit-progress-value {
   margin-top: .2rem;
 }
 
+.prop_div{
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+.activity_empty{
+  width: 100%;
+  line-height: 200rpx;
+  color: #666;
+  font-size: 30rpx;
+  text-align: center;
+}
+.prop_div .prop_content{
+  /* width: 400rpx; */
+  margin: 0 auto;
+  padding: .5rem .3rem;
+  position: relative;
+  text-align: center;
+  display: inline-block;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+}
+.prop_content .coupon_div{
+  position: relative;
+}
+.prop_content .coupon_div img{
+  width: 8rem;
+}
+.prop_content .coupon_div .coupon{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: transparent;
+}
+.coupon_div .coupon .title{
+  flex-shrink:0;
+  margin-top: 1.5rem;
+  color: #7a0000;
+  font-size: .5rem;
+}
+.coupon_div .coupon .money{
+  flex-grow: 1;
+  overflow: hidden;
+  text-align: center;
+  font-size: .5rem;
+  color: #E31537;
+  padding-top: .4rem;
+  margin-left: -.3rem;
+}
+.coupon_div .coupon .money .price{
+  font-size: 1.2rem;
+}
+.coupon_div .coupon .btn{
+  text-align: center;
+  margin-bottom: .7rem;
+}
+.coupon_div .coupon .btn span{
+  width: 3rem;
+  line-height: 1rem;
+  font-size: .4rem;
+  color: #E31537;
+  text-align: center;
+  background: #facf9c;
+  border-radius: .5rem;
+  display: inline-block;
+}
+.prop_div .prop_content .closeProp {
+  margin-top: .5rem;
+  width: 1rem;
+}
 </style>

@@ -67,7 +67,7 @@ export default {
       }
       _this.$dataPost('/api/extract/goExtract', {
         userId: window.localStorage.getItem('userId'),
-        money: _this.money,
+        money: _this.number,
         type: '支付宝',
         code: _this.alipay
       }, (res) => {

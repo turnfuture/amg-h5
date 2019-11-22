@@ -95,7 +95,7 @@ export default {
         type: type,
         pageSize: _this.pageSize,
         pageNumber: _this.page,
-        platformId: 0
+        platformId: 2
       }, (res) => {
         if (res.code !== 0) {
           _this.$messagebox({

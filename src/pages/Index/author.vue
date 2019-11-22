@@ -20,6 +20,12 @@ export default {
       var r = window.location.search.substr(1).match(reg)
       if (r != null) return unescape(r[2])
       return null
+    },
+    beforeLoginUrl (name) {
+      var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)')
+      var r = window.localStorage.getItem('beforeLoginUrl').substr(2).match(reg)
+      if (r != null) return unescape(r[2])
+      return null
     }
   },
   created () {
@@ -29,8 +35,8 @@ export default {
     } else {
       this.$dataPost('/api/member/user/getUserInfoGz', {
         code: this.getUrlParam('code'),
-        InvitationCode: '',
-        shopId: ''
+        InvitationCode: this.beforeLoginUrl('InvitationCode') || '',
+        shopId: this.beforeLoginUrl('shopId') || ''
       }, (res) => {
         if (res.code !== 0) {
           this.$messagebox({

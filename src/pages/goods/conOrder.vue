@@ -148,7 +148,8 @@ export default {
       productId: '',
       couponId: '',
       flagIndex: -1,
-      orderInfo: []
+      orderInfo: [],
+      doubClick: true
     }
   },
   methods: {
@@ -218,7 +219,7 @@ export default {
           return false
         }
         let list = res.data.list
-        if (list.length === 0) {
+        if (list.length > 0) {
           _this.couponShow = true
           _this.couponts = list
         } else {
@@ -253,6 +254,10 @@ export default {
     orderBtn () {
       // 提交订单
       let _this = this
+      if (!_this.doubClick) {
+        return false
+      }
+      _this.doubClick = false
       let showNum = JSON.parse(localStorage.getItem('cartOrder'))
       let tjmsg = _this.msg
       let postFee = _this.allPostFee

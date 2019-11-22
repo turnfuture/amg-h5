@@ -79,6 +79,7 @@ export default {
       let _this = this
       _this.currentTab = type
       _this.page = 1
+      _this.incomeList = []
       _this.attrIncomeList(type)
     },
     attrIncomeList (type) {
@@ -93,7 +94,7 @@ export default {
         type: type,
         pageSize: _this.pageSize,
         pageNumber: _this.page,
-        platformId: 0
+        platformId: 2
       }, (res) => {
         _this.$indicator.close()
         if (res.code !== 0) {

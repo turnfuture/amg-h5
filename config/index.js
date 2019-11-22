@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api':{
-         target:'https://weixin.mrttg.com/api',// 接口域名
+         target:'https://amg.aitaunkj.com/api',// 接口域名
          changeOrigin: true, // 是否跨域
          pathRewrite: {
              '^/api': ' '  // 需要rewrite重写的

@@ -20,7 +20,7 @@
               ￥{{item.money}}
             </div>
             <div class="list-item-text">
-              <span v-if="currentTab == 0">满￥100可用</span>
+              <span v-if="currentTab == 0">满￥{{item.coupon_money}}可用</span>
               <span v-else-if="currentTab == 1">已使用</span>
               <span v-else>{{item.status==2?'已过期':'已失效'}}</span>
               <span>有效至：{{item.limit_endAt}}</span>
