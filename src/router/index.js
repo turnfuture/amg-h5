@@ -204,6 +204,13 @@ export default new Router({
         title: '我的收藏'
       }
     }, {
+      path: '/raty',
+      name: 'Raty',
+      component: () => import('@/pages/center/raty'),
+      meta: {
+        title: '我的评价'
+      }
+    }, {
       path: '/mineMsg',
       name: 'MineMsg',
       component: () => import('@/pages/center/mineMsg'),

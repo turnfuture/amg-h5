@@ -118,6 +118,13 @@
         </router-link>
       </div>
       <div class="my-list-item">
+        <router-link to="raty">
+          <img src="../../assets/img/center/raty.png" alt="icon图标">
+          我的评价
+          <i class="iconfont icon-youjiantou"></i>
+        </router-link>
+      </div>
+      <div class="my-list-item">
         <router-link to="mineMsg">
           <img src="../../assets/img/index/xiaoxi.png" alt="icon图标">
           消息

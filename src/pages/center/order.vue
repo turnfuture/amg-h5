@@ -72,7 +72,7 @@
                 <router-link :to="{path: 'RetuGoods', query: {id: item.id}}">退货</router-link>
               </button>
             </div>
-            <div class="order-item-button" v-else-if="item.status == 7&&item.coment">
+            <div class="order-item-button" v-else-if="item.status == 8">
               <button @click.stop="reMove(item.id)">删除订单</button>
             </div>
             <div class="order-item-button" v-else-if="item.status==7&&!item.coment">
@@ -182,9 +182,7 @@ export default {
       _this.$messagebox.confirm('是否确认删除此订单么？').then(action => {
         _this.$dataPost('/api/order/removeOrder', {
           userId: window.localStorage.getItem('userId'),
-          orderIdList: [{
-            orderId: orderId
-          }]
+          orderIdList: [orderId]
         }, (res) => {
           if (res.code !== 0) {
             _this.$messagebox({

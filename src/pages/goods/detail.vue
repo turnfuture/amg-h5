@@ -106,7 +106,7 @@
                 <div class="comment-li-title">
                   <img :src="item.avator" alt="用户头像">
                   <div class="comment-title">
-                    <span>无与伦比的美丽</span>
+                    <span>{{item.name}}</span>
                     <div class="comment-star">
                       <template v-if="item.star > 0">
                         <img src="../../assets/img/activity/star-active.png" alt="评论">
@@ -692,7 +692,7 @@ export default {
       let newTime = new Date().getTime()
       // 对结束时间进行处理渲染到页面
       // endTimeList.forEach(o => {
-      let endTime = new Date(_this.actEndTime).getTime()
+      let endTime = new Date(_this.actEndTime.replace(/-/g, '/')).getTime()
       let obj = null
       let isFinish = _this.isFinish
       // 如果活动未结束，对时间进行处理

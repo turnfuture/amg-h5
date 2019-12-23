@@ -22,6 +22,7 @@ Vue.prototype.$dataPost = dataPost
 Vue.config.productionTip = false
 
 router.beforeEach((to, from, next) => {
+  // localStorage.setItem('userId', '09284dc4c77a40febb3629c5bacfa04b')
   //   第一次进入项目 没有userid直接去授权
   let userId = window.localStorage.getItem('userId')
   if (userId === null && to.path !== '/author') {
